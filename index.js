@@ -8,7 +8,7 @@ app.all('/', (req, res) => {
     console.log(req.headers, req.socket)
     // res.send('Yo!')
     // const clientIp = req.clientIp;
-    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const clientIp = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     res.json({ ip: clientIp });
 })
 app.listen(process.env.PORT || 3000)
